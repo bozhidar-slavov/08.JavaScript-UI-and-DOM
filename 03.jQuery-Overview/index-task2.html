@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        function solve() {
+            return function (selector) {
+                if (typeof (selector) !== 'string' || $(selector).size() === 0) {
+                    throw new Error('Invalid selector');
+                }
+
+                var element = $(selector);
+
+                element.children('.button').text('hide');
+
+                element.on('click', '.button', function () {
+                    var $this = $(this),
+                        text = $(this).text();
+
+                    if ($this.nextAll().not('br').first().attr('class') == 'button' || 
+                        $this.nextAll().not('br').first().attr('class') == null) {
+                        return;
+                    }
+
+                    var next = $this.nextAll('content').first();
+                    next.toggle();
+
+                    if (next.css('display') == 'block') {
+                        next.css({ 'display': '' });
+                    }
+
+                    $this.text(text == 'hide' ? 'show' : 'hide');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
